@@ -5,12 +5,12 @@ class AboutBuyer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0C7230),
+        backgroundColor: const Color(0xFFCA771A),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
+        title: const Text(
           'About',
           style: TextStyle(
             fontFamily: 'Poppins',
@@ -22,15 +22,15 @@ class AboutBuyer extends StatelessWidget {
         centerTitle: true, // Center the title horizontally
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 5.0,
@@ -46,7 +46,7 @@ class AboutBuyer extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim, nibh ac dictum finibus, tellus enim porttitor ex,',
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -56,10 +56,10 @@ class AboutBuyer extends StatelessWidget {
               textAlign: TextAlign.justify,
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 5.0,
@@ -75,7 +75,7 @@ class AboutBuyer extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim, nibh ac dictum finibus, tellus enim porttitor ex,',
               style: TextStyle(
                 fontFamily: 'Poppins',
