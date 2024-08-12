@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -43,7 +44,7 @@ flutter:
     - images/buyers/sample-buyer-pic.jpg
     - images/farmers/lucbantradingpost.jpg
     - images/farmers/Frame 5.png
-    
+    - images/buyers/QR.png
   fonts:
     - family: Poppins
       fonts:
