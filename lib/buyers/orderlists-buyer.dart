@@ -1,7 +1,18 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 
-class OrdersListsBuyer extends StatelessWidget {
+class OrdersListsBuyer extends StatefulWidget {
+  const OrdersListsBuyer({Key? key}) : super(key: key);
+
+  @override
+  _OrdersListsBuyerState createState() => _OrdersListsBuyerState();
+}
+
+class _OrdersListsBuyerState extends State<OrdersListsBuyer> {
+  bool _isCompletedSelected = true;
+  bool _isCancelledSelected = false;
+  bool isExpanded = false; // Define isExpanded here
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,328 +23,267 @@ class OrdersListsBuyer extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0C7230),
+            color: Color(0xFFCA771A),
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              OrderCard(
-                imagePath: 'images/farmers/carrots.png',
-                productName: 'Carrots',
-                kilos: '10 kilos',
-                quantity: '0',
-                price: 'P00.00',
-              ),
-              SizedBox(height: 16.0),
-              OrderCard(
-                imagePath: 'images/farmers/carrots.png',
-                productName: 'Carrots',
-                kilos: '10 kilos',
-                quantity: '0',
-                price: 'P00.00',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class OrderCard extends StatefulWidget {
-  final String imagePath;
-  final String productName;
-  final String kilos;
-  final String quantity;
-  final String price;
-
-  OrderCard({
-    required this.imagePath,
-    required this.productName,
-    required this.kilos,
-    required this.quantity,
-    required this.price,
-  });
-
-  @override
-  _OrderCardState createState() => _OrderCardState();
-}
-
-class _OrderCardState extends State<OrderCard> {
-  bool isExpanded = false;
-
-  void toggleExpand() {
-    setState(() {
-      isExpanded = !isExpanded;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      color: Color(0xFF0C7230),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
-                    widget.imagePath,
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(width: 16.0),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.productName,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _isCompletedSelected = true;
+                        _isCancelledSelected = false;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isCompletedSelected
+                          ? const Color(0xFFCA771A)
+                          : Colors.white,
+                      side: const BorderSide(color: Color(0xFFCA771A)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
-                        widget.kilos,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                        ),
+                    ),
+                    child: Text(
+                      'Completed',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        color: _isCompletedSelected
+                            ? Colors.white
+                            : const Color(0xFFCA771A),
                       ),
-                      SizedBox(height: 16.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Quantity:',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                widget.quantity,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Price:',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                widget.price,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(
-                    isExpanded ? Icons.expand_less : Icons.expand_more,
-                    color: Colors.white,
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _isCompletedSelected = false;
+                        _isCancelledSelected = true;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isCancelledSelected
+                          ? const Color(0xFFCA771A)
+                          : Colors.white,
+                      side: const BorderSide(color: Color(0xFFCA771A)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Cancelled',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        color: _isCancelledSelected
+                            ? Colors.white
+                            : const Color(0xFFCA771A),
+                      ),
+                    ),
                   ),
-                  onPressed: toggleExpand,
                 ),
               ],
             ),
-            if (isExpanded)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+            const SizedBox(height: 20.0),
+            Expanded(
+              child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Farmer Name: ',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'Sample Name',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Contact:',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      '09123456789',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Mode of Delivery:',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'Pickup',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Delivery Date:',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                     SizedBox(height: 4.0),
-                    Text(
-                      '00/00/00',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Status:',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'On Delivery',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Color(0xFF0C7230),
-                          side: BorderSide(color: Color(0xFF0C7230)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 16.0), // Adjust padding
+                    if (_isCancelledSelected)
+                      Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
                         ),
-                        onPressed: () {},
-                        child: Text(
-                          'Message',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.asset(
+                                    'images/farmers/carrots.png',
+                                    width: 100.0,
+                                    height: 100.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                const SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Carrots',
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFFCA771A),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        'Quantity: 10 Kilos',
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 16.0,
+                                          color: Color(0xFFCA771A),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        'Total: P200.00',
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFFCA771A),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(width: 8.0), // Adjusted space
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Color(0xFF0C7230),
-                          side: BorderSide(color: Color(0xFF0C7230)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 16.0), // Adjust padding
+                    if (_isCompletedSelected)
+                      Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
                         ),
-                        onPressed: () {},
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.asset(
+                                    'images/buyers/product-corn.png',
+                                    width: 100.0,
+                                    height: 100.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                const SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Corn',
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFFCA771A),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        'Quantity: 10 Kilos',
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 16.0,
+                                          color: Color(0xFFCA771A),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        'Total: P100.00',
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFFCA771A),
+                                        ),
+                                      ),
+                                      if (isExpanded) ...[
+                                        const SizedBox(height: 10.0),
+                                        const Text(
+                                          'Organization: Lucban Farmers',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 12.0,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4.0),
+                                        const Text(
+                                          'Farmer: Nestor Juan',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 12.0,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4.0),
+                                        const Text(
+                                          'PickUp Address: Lucban Trading',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 12.0,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    isExpanded ? Icons.expand_less : Icons.expand_more,
+                                    color: Color(0xFFCA771A),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      isExpanded = !isExpanded;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(width: 8.0), // Adjusted space
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Color(0xFF0C7230),
-                          side: BorderSide(color: Color(0xFF0C7230)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 16.0), // Adjust padding
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          'Received',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   ],
                 ),
               ),
+            ),
           ],
         ),
       ),
