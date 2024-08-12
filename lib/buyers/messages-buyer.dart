@@ -1,9 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MessagesPageBuyer extends StatelessWidget {
+  const MessagesPageBuyer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+
+    // Get current date and time
+    final now = DateTime.now();
+    final formattedDateTime = DateFormat('MMM d, yyyy h:mm a').format(now); // Format date and time
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, 
@@ -12,177 +20,104 @@ class MessagesPageBuyer extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0C7230),
+            color: Color(0xFFCA771A),
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildMessageCard(
+                context,
+                avatarColor: Color(0xFFCA771A),
+                name: 'Lucban Farmers',
+                message: 'Meron pa bang available na',
+                time: formattedDateTime,
+              ),
+              SizedBox(height: 20.0), // Increase spacing between cards
+              _buildMessageCard(
+                context,
+                avatarColor: Color(0xFFCA771A),
+                name: 'Farmers Name',
+                message: 'Meron pa bang available na',
+                time: formattedDateTime,
+              ),
+              SizedBox(height: 20.0), // Increase spacing between cards
+              _buildMessageCard(
+                context,
+                avatarColor: Color(0xFFCA771A),
+                name: 'Farmers Name',
+                message: 'Meron pa bang available na coffee beans',
+                time: formattedDateTime,
+              ),
+              // Add more message cards as needed
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Helper method to build a message card
+  Widget _buildMessageCard(
+    BuildContext context, {
+    required Color avatarColor,
+    required String name,
+    required String message,
+    required String time,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      elevation: 5,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0), // Increase padding for larger card size
+        child: Row(
           children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0), // Increase padding for larger card size
-                child: Row(
-                  children: const [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Color(0xFF0C7230),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Farmers Name',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
-                              color: Color(0xFF0C7230),
-                            ),
-                          ),
-                          Text(
-                            '10:32 AM',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.0,
-                              color: Color(0xFF0C7230),
-                            ),
-                          ),
-                          Text(
-                            'Meron pa bang available na',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.0,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: avatarColor,
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
               ),
             ),
-            SizedBox(height: 20.0), // Increase spacing between cards
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0), // Increase padding for larger card size
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Color(0xFF0C7230),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
+            SizedBox(width: 16.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                      color: avatarColor,
                     ),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Farmers Name',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
-                              color: Color(0xFF0C7230),
-                            ),
-                          ),
-                          Text(
-                            '10:32 AM',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.0,
-                              color: Color(0xFF0C7230),
-                            ),
-                          ),
-                          Text(
-                            'Meron pa bang available na',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.0,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                  Text(
+                    time,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 10.0,
+                      color: avatarColor,
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0), // Increase spacing between cards
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0), // Increase padding for larger card size
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Color(0xFF0C7230),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
+                  ),
+                  Text(
+                    message,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14.0,
+                      color: Colors.grey,
                     ),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Farmers Name',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
-                              color: Color(0xFF0C7230),
-                            ),
-                          ),
-                          Text(
-                            '10:32 AM',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.0,
-                              color: Color(0xFF0C7230),
-                            ),
-                          ),
-                          Text(
-                            'Meron pa bang available na',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14.0,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -191,4 +126,3 @@ class MessagesPageBuyer extends StatelessWidget {
     );
   }
 }
-
